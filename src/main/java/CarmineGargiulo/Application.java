@@ -6,11 +6,12 @@ public class Application {
     public static void main(String[] args) {
         Collezione collezione = new Collezione();
         collezione.getListaGiochi().forEach(System.out::println);
-        collezione.aggiungiElemento();
+       /* collezione.aggiungiElemento();
         collezione.getListaGiochi().forEach(System.out::println);
         collezione.ricercaId();
         collezione.ricercaPrezzo();
         collezione.ricercaGiocatori();
-        collezione.rimuoviId();
+        collezione.rimuoviId();*/
+        collezione.aggiornamentoGioco();
     }
 }
