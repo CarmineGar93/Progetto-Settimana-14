@@ -107,21 +107,22 @@ public class Collezione {
         while (iterator.hasNext()){
             Gioco corrente = iterator.next();
             if(corrente.getId() == finalRicerca){
+                System.out.println("Rimozione del gioco mostrato di seguito in corso");
+                System.out.println(corrente);
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
                 iterator.remove();
                 rimosso = true;
+                System.out.println("Gioco della collezione cancellato con successo");
                 break;
             }
         }
-        if (rimosso) {
-            System.out.println("Rimozione gioco in corso");
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            System.out.println("Gioco della collezione cancellato con successo");
+        if (!rimosso) {
+            System.out.println("Nessun elemento corrisponde all'id cercato");
         }
-        else System.out.println("Nessun elemento corrisponde all'id cercato");
     }
 
     public void aggiornaGioco(){
@@ -197,7 +198,7 @@ public class Collezione {
             double finalPrice = price;
             System.out.println("Ecco il gioco che hai inserito");
             Optional <Gioco> giocoInserito = listaGiochi.stream().filter(gioco -> gioco.getTitolo().equals(titolo) && gioco.getPrezzo() == finalPrice).findFirst();
-            if(giocoInserito.isPresent())  System.out.println(giocoInserito);
+            if(giocoInserito.isPresent())  System.out.println(giocoInserito.get());
             else System.out.println("Qualcosa è andato storto");
         }
     }
