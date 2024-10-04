@@ -41,9 +41,9 @@ public class Videogioco extends Gioco {
     @Override
     public String toString() {
         return super.toString() +
-                ", piattaforma=" + piattaforma +
-                ", durata=" + durata +
-                ", genere=" + genere;
+                ", piattaforma = " + piattaforma +
+                ", durata = " + durata +
+                " ore, genere = " + genere;
     }
 
 }

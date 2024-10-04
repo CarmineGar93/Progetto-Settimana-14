@@ -5,7 +5,6 @@ import CarmineGargiulo.Collezione.Collezione;
 public class Application {
     public static void main(String[] args) {
         Collezione collezione = new Collezione();
-        System.out.println(collezione.getListaGiochi());
-        System.out.println(collezione.getListaGiochi().size());
+        collezione.getListaGiochi().forEach(System.out::println);
     }
 }

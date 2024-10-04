@@ -49,9 +49,9 @@ public abstract class Gioco implements Comparable<Gioco> {
     @Override
     public String toString() {
         return "Gioco: " +
-                "titolo='" + titolo + '\'' +
-                ", annoPubblicazione=" + annoPubblicazione +
-                ", prezzo=" + prezzo + "id: " + id;
+                "titolo = " + titolo +
+                ", annoPubblicazione = " + annoPubblicazione +
+                ", prezzo = " + prezzo;
     }
 
     @Override
