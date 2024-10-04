@@ -10,5 +10,6 @@ public class Application {
         collezione.getListaGiochi().forEach(System.out::println);
         collezione.ricercaId();
         collezione.ricercaPrezzo();
+        collezione.ricercaGiocatori();
     }
 }

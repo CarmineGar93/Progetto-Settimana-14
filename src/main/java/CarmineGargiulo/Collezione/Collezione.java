@@ -67,6 +67,28 @@ public class Collezione {
         }
     }
 
+    public void ricercaGiocatori(){
+        System.out.println("Inserisci un numero di giocatori da 1 a 8, ti mostreremo la lista di giochi da tavolo nella nostra collezione con numero di giocatori corrispondente");
+        int ricerca;
+        while (true){
+            String input = scanner.nextLine();
+            try {
+                ricerca = Integer.parseInt(input);
+                if (ricerca <= 0 || ricerca > 8) System.out.println("Devi inserire un numero nel range");
+                else break;
+            } catch (NumberFormatException e){
+                System.out.println("Devi inserire un numero");
+            }
+        }
+        int finalRicerca = ricerca;
+        List<Gioco> listaGiocatori = listaGiochi.stream().filter(gioco -> gioco instanceof GiocoDaTavolo && ((GiocoDaTavolo) gioco).getNumeroGiocatori() == finalRicerca).toList();
+        if (listaGiocatori.isEmpty()) System.out.println("Nessun gioco nella collezione con il numero di persone inserito");
+        else {
+            System.out.println("Ecco la lista filtrata");
+            listaGiocatori.forEach(System.out::println);
+        }
+    }
+
     public void ricercaId(){
         System.out.println("Inserisci un id da cercare (range 1-1000)");
         int ricerca;
