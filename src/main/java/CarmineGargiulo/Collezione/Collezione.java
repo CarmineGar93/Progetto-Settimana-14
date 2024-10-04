@@ -119,7 +119,7 @@ public class Collezione {
         if (rimosso) {
             System.out.println("Rimozione gioco in corso");
             try {
-                Thread.sleep(2000); //java. lang. InterruptedException senza try/catch
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -128,7 +128,7 @@ public class Collezione {
         else System.out.println("Nessun elemento corrisponde all'id cercato");
     }
 
-    public void aggiornamentoGioco(){
+    public void aggiornaGioco(){
         int finalRicerca = insertId();
         Optional <Gioco> giocoCercato = listaGiochi.stream().filter(gioco -> gioco.getId() == finalRicerca).findFirst();
         System.out.println("Che cosa vuoi modificare?");
@@ -217,6 +217,58 @@ public class Collezione {
         System.out.println("Il numero totale dei giochi da tavolo è: " + nrGiochidaTavolo);
         System.out.println("Il gioco con il prezzo più alto è: " + mostExpensiveGame.get());
         System.out.println("La media prezzi dei giochi è: " + mediaPrezzi.getAsDouble());
+    }
+
+    public void avviaMenu(){
+        System.out.println("Benvenuto nella tua collezioni di giochi");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        while (true){
+            System.out.println("Giochi presenti nella lista: " + listaGiochi.size());
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("Ecco la tua lista");
+            listaGiochi.forEach(System.out::println);
+            System.out.println("Che cosa vuoi fare?");
+            System.out.println("1 per aggiungere elemento");
+            System.out.println("2 per ricercare gioco tramite id");
+            System.out.println("3 per ricerca in base ad una fascia di prezzo");
+            System.out.println("4 per ricerca giochi da tavolo in base al numero dei giocatori");
+            System.out.println("5 per rimozione gioco tramite id");
+            System.out.println("6 per aggiornamento gioco tramite id");
+            System.out.println("7 per le statistiche della tua collezione");
+            System.out.println("0 per uscire");
+            int scelta;
+            while (true){
+                String input = scanner.nextLine();
+                try {
+                    scelta = Integer.parseInt(input);
+                    if (scelta < 0 || scelta > 7) System.out.println("Devi inserire un numero nel range");
+                    else break;
+                } catch (NumberFormatException e){
+                    System.out.println("Devi inserire un numero");
+                }
+            }
+            switch (scelta){
+                case 0 -> {
+                    System.out.println("A presto");
+                    return;
+                }
+                case 1 -> aggiungiElemento();
+                case 2 -> ricercaId();
+                case 3 -> ricercaPrezzo();
+                case 4 -> ricercaGiocatori();
+                case 5 -> rimuoviId();
+                case 6 -> aggiornaGioco();
+                case 7 -> statistiche();
+            }
+        }
     }
 
 }
