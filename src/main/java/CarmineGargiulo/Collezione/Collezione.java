@@ -188,6 +188,12 @@ public class Collezione {
             else break;
         }
         aggiungi(titolo, price, ricerca);
+        System.out.println("Aggiunta gioco in corso");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         System.out.println((ricerca == 1 ? "Videogioco " : "Gioco da tavolo ") + "inserito con successo");
     }
 
