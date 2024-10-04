@@ -6,6 +6,7 @@ import com.github.javafaker.Faker;
 import java.util.*;
 
 public class Collezione {
+    Scanner scanner = new Scanner(System.in);
     private Faker faker = new Faker(Locale.ITALY);
     private Random random = new Random();
     private Collection<Gioco> listaGiochi = new TreeSet<>();
@@ -43,8 +44,28 @@ public class Collezione {
         }
     }
 
+    public void ricercaId(){
+        System.out.println("Inserisci un id da cercare (range 1-1000)");
+        int ricerca;
+        while (true){
+            String input = scanner.nextLine();
+            try {
+                ricerca = Integer.parseInt(input);
+                if (ricerca <= 0 || ricerca > 1000) System.out.println("Devi inserire un numero nel range");
+                else break;
+            } catch (NumberFormatException e){
+                System.out.println("Devi inserire un numero");
+            }
+        }
+        int finalRicerca = ricerca;
+        Optional <Gioco> giocoCercato = listaGiochi.stream().filter(gioco -> gioco.getId() == finalRicerca).findFirst();
+        if(giocoCercato.isPresent()) {
+            System.out.println("Ecco il gioco cercato");
+            System.out.println(giocoCercato.get());
+        } else System.out.println("Nessun gioco corrisponde all' Id fornito");
+    }
+
     public void aggiungiElemento() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("1 per inserire un Videogioco - 2 per inserire un gioco da tavolo");
         int opzione;
         while (true){
@@ -52,7 +73,7 @@ public class Collezione {
             try {
                 opzione = Integer.parseInt(scelta);
 
-                if(opzione < 0 || opzione > 2) System.out.println("Devi inserire 1 o 2");
+                if(opzione <= 0 || opzione > 2) System.out.println("Devi inserire 1 o 2");
                 else break;
             } catch (NumberFormatException e){
                 System.out.println("Devi inserire un numero");

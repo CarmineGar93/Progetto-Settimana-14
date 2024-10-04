@@ -6,5 +6,8 @@ public class Application {
     public static void main(String[] args) {
         Collezione collezione = new Collezione();
         collezione.getListaGiochi().forEach(System.out::println);
+        collezione.aggiungiElemento();
+        collezione.getListaGiochi().forEach(System.out::println);
+        collezione.ricercaId();
     }
 }

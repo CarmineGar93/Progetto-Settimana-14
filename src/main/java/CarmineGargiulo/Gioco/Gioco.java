@@ -4,7 +4,7 @@ import java.util.Random;
 
 public abstract class Gioco implements Comparable<Gioco> {
     Random random = new Random();
-    protected int id = random.nextInt(0, 1000);
+    protected int id = random.nextInt(1, 1001);
     protected String titolo;
     protected int annoPubblicazione = random.nextInt(1990, 2024);
     protected double prezzo;
@@ -49,7 +49,7 @@ public abstract class Gioco implements Comparable<Gioco> {
     @Override
     public String toString() {
         return "Gioco: " +
-                "titolo = " + titolo +
+                "titolo = " + titolo + ", id = " + id +
                 ", annoPubblicazione = " + annoPubblicazione +
                 ", prezzo = " + prezzo;
     }
