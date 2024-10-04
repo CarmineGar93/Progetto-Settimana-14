@@ -132,41 +132,40 @@ public class Collezione {
     public void aggiornamentoGioco(){
         int finalRicerca = insertId();
         Optional <Gioco> giocoCercato = listaGiochi.stream().filter(gioco -> gioco.getId() == finalRicerca).findFirst();
-
-            System.out.println("Che cosa vuoi modificare?");
-            System.out.println("1 per titolo - 2 per prezzo");
-            int ricerca;
-            while (true){
-                String input = scanner.nextLine();
-                try {
-                    ricerca = Integer.parseInt(input);
-                    if (ricerca <= 0 || ricerca > 2) System.out.println("Devi inserire 1 o 2");
+        System.out.println("Che cosa vuoi modificare?");
+        System.out.println("1 per titolo - 2 per prezzo");
+        int ricerca;
+        while (true){
+            String input = scanner.nextLine();
+            try {
+                ricerca = Integer.parseInt(input);
+                if (ricerca <= 0 || ricerca > 2) System.out.println("Devi inserire 1 o 2");
                     else break;
-                } catch (NumberFormatException e){
+            } catch (NumberFormatException e){
+                System.out.println("Devi inserire un numero");
+            }
+        }
+        if (ricerca == 1) {
+            System.out.println("Inserisci il nuovo titolo");
+            String titolo = scanner.nextLine();
+            giocoCercato.get().setTitolo(titolo);
+        } else {
+            System.out.println("Inserisci il nuovo prezzo");
+            double price;
+            while (true) {
+                String strPrice = scanner.nextLine();
+                try {
+                    price = Double.parseDouble(strPrice);
+                    if(price <= 0) System.out.println("Devi inserire un prezzo maggiore di zero");
+                    else break;
+                } catch (NumberFormatException e) {
                     System.out.println("Devi inserire un numero");
                 }
             }
-            if (ricerca == 1)
-                {
-                    System.out.println("Inserisci il nuovo titolo");
-                    String titolo = scanner.nextLine();
-                    giocoCercato.get().setTitolo(titolo);
-                } else {
-                    System.out.println("Inserisci il nuovo prezzo");
-                    double price;
-                    while (true) {
-                        String strPrice = scanner.nextLine();
-                        try {
-                            price = Double.parseDouble(strPrice);
-                            if(price <= 0) System.out.println("Devi inserire un prezzo maggiore di zero");
-                            else break;
-                        } catch (NumberFormatException e) {
-                            System.out.println("Devi inserire un numero");
-                        }
-                    }
-                    giocoCercato.get().setPrezzo(price);
-                }
+            giocoCercato.get().setPrezzo(price);
         }
+        System.out.println("Ecco l'elemento dopo la modifica effetuata");
+        System.out.println(giocoCercato.get());
     }
 
     public void ricercaId(){

@@ -13,5 +13,7 @@ public class Application {
         collezione.ricercaGiocatori();
         collezione.rimuoviId();*/
         collezione.aggiornamentoGioco();
+        collezione.getListaGiochi().forEach(System.out::println);
+
     }
 }
