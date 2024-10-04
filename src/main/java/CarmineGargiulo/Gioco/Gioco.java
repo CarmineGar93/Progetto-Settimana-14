@@ -18,10 +18,6 @@ public abstract class Gioco implements Comparable<Gioco> {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getTitolo() {
         return titolo;
     }

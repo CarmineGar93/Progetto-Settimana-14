@@ -195,6 +195,10 @@ public class Collezione {
             throw new RuntimeException(e);
         }
         System.out.println((ricerca == 1 ? "Videogioco " : "Gioco da tavolo ") + "inserito con successo");
+        double finalPrice = price;
+        System.out.println("Ecco il gioco che hai inserito");
+        System.out.println(listaGiochi.stream().filter(gioco -> gioco.getTitolo().equals(titolo) && gioco.getPrezzo() == finalPrice).findFirst().get());
+
     }
 
     public void statistiche(){
