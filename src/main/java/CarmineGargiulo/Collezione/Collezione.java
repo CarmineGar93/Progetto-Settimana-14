@@ -180,25 +180,28 @@ public class Collezione {
        }
         System.out.println("Inserisci il titolo del gioco");
         String titolo = scanner.nextLine();
-        System.out.println("Adesso inserisci il prezzo");
-        double price;
-        while (true) {
-            price = verifyInput(false);
-            if (price <= 0) System.out.println("Il prezzo deve essere maggiore di zero");
-            else break;
+        if(listaGiochi.stream().anyMatch(gioco -> gioco.getTitolo().equals(titolo))){
+            System.out.println("Errore -- Gioco già esistente nella tua collezione");
+        } else {
+            System.out.println("Adesso inserisci il prezzo");
+            double price;
+            while (true) {
+                price = verifyInput(false);
+                if (price <= 0) System.out.println("Il prezzo deve essere maggiore di zero");
+                else break;
+            }
+            aggiungi(titolo, price, ricerca);
+            System.out.println("Aggiunta gioco in corso");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println((ricerca == 1 ? "Videogioco " : "Gioco da tavolo ") + "inserito con successo");
+            double finalPrice = price;
+            System.out.println("Ecco il gioco che hai inserito");
+            System.out.println(listaGiochi.stream().filter(gioco -> gioco.getTitolo().equals(titolo) && gioco.getPrezzo() == finalPrice).findFirst().get());
         }
-        aggiungi(titolo, price, ricerca);
-        System.out.println("Aggiunta gioco in corso");
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println((ricerca == 1 ? "Videogioco " : "Gioco da tavolo ") + "inserito con successo");
-        double finalPrice = price;
-        System.out.println("Ecco il gioco che hai inserito");
-        System.out.println(listaGiochi.stream().filter(gioco -> gioco.getTitolo().equals(titolo) && gioco.getPrezzo() == finalPrice).findFirst().get());
-
     }
 
     public void statistiche(){
