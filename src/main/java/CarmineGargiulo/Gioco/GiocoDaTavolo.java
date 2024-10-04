@@ -3,7 +3,7 @@ package CarmineGargiulo.Gioco;
 import java.util.Random;
 
 public class GiocoDaTavolo extends Gioco{
-    Random random = new Random();
+    private Random random = new Random();
     private int numeroGiocatori = random.nextInt(0, 8);
     private int durataPartita = random.nextInt(20, 120);
 

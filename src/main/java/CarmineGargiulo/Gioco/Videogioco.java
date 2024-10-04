@@ -3,7 +3,7 @@ package CarmineGargiulo.Gioco;
 import java.util.Random;
 
 public class Videogioco extends Gioco {
-    Random random = new Random();
+    private Random random = new Random();
     private Piattaforma piattaforma;
     private int durata = random.nextInt(40,120);
     private Genere genere;
@@ -41,8 +41,9 @@ public class Videogioco extends Gioco {
     @Override
     public String toString() {
         return super.toString() +
-                "piattaforma=" + piattaforma +
+                ", piattaforma=" + piattaforma +
                 ", durata=" + durata +
                 ", genere=" + genere;
     }
+
 }
