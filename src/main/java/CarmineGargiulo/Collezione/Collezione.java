@@ -131,40 +131,44 @@ public class Collezione {
     public void aggiornaGioco(){
         int finalRicerca = insertId();
         Optional <Gioco> giocoCercato = listaGiochi.stream().filter(gioco -> gioco.getId() == finalRicerca).findFirst();
-        System.out.println("Che cosa vuoi modificare?");
-        System.out.println("1 per titolo - 2 per prezzo");
-        int ricerca;
-        while (true){
-            String input = scanner.nextLine();
-            try {
-                ricerca = Integer.parseInt(input);
-                if (ricerca <= 0 || ricerca > 2) System.out.println("Devi inserire 1 o 2");
-                    else break;
-            } catch (NumberFormatException e){
-                System.out.println("Devi inserire un numero");
-            }
-        }
-        if (ricerca == 1) {
-            System.out.println("Inserisci il nuovo titolo");
-            String titolo = scanner.nextLine();
-            giocoCercato.get().setTitolo(titolo);
-        } else {
-            System.out.println("Inserisci il nuovo prezzo");
-            double price;
-            while (true) {
-                String strPrice = scanner.nextLine();
+        if(giocoCercato.isPresent()){
+            System.out.println("Che cosa vuoi modificare?");
+            System.out.println("1 per titolo - 2 per prezzo");
+            int ricerca;
+            while (true){
+                String input = scanner.nextLine();
                 try {
-                    price = Double.parseDouble(strPrice);
-                    if(price <= 0) System.out.println("Devi inserire un prezzo maggiore di zero");
+                    ricerca = Integer.parseInt(input);
+                    if (ricerca <= 0 || ricerca > 2) System.out.println("Devi inserire 1 o 2");
                     else break;
-                } catch (NumberFormatException e) {
+                } catch (NumberFormatException e){
                     System.out.println("Devi inserire un numero");
                 }
             }
-            giocoCercato.get().setPrezzo(price);
+            if (ricerca == 1) {
+                System.out.println("Inserisci il nuovo titolo");
+                String titolo = scanner.nextLine();
+                giocoCercato.get().setTitolo(titolo);
+            } else {
+                System.out.println("Inserisci il nuovo prezzo");
+                double price;
+                while (true) {
+                    String strPrice = scanner.nextLine();
+                    try {
+                        price = Double.parseDouble(strPrice);
+                        if(price <= 0) System.out.println("Devi inserire un prezzo maggiore di zero");
+                        else break;
+                    } catch (NumberFormatException e) {
+                        System.out.println("Devi inserire un numero");
+                    }
+                }
+                giocoCercato.get().setPrezzo(price);
+            }
+            System.out.println("Ecco l'elemento dopo la modifica effetuata");
+            System.out.println(giocoCercato.get());
+        } else {
+            System.out.println("Nessun elemento corrisponde all'id cercato");
         }
-        System.out.println("Ecco l'elemento dopo la modifica effetuata");
-        System.out.println(giocoCercato.get());
     }
 
     public void ricercaId(){
@@ -180,16 +184,15 @@ public class Collezione {
         System.out.println("1 per inserire un Videogioco - 2 per inserire un gioco da tavolo");
         int opzione;
         while (true){
-            String scelta = scanner.nextLine();
-            try {
-                opzione = Integer.parseInt(scelta);
-
-                if(opzione <= 0 || opzione > 2) System.out.println("Devi inserire 1 o 2");
-                else break;
-            } catch (NumberFormatException e){
-                System.out.println("Devi inserire un numero");
-            }
-        }
+           String input = scanner.nextLine();
+           try {
+               opzione = Integer.parseInt(input);
+               if (opzione <= 0 || opzione > 2) System.out.println("Devi inserire 1 o 2");
+               else break;
+           } catch (NumberFormatException e){
+               System.out.println("Devi inserire un numero");
+           }
+       }
         System.out.println("Inserisci il titolo del gioco");
         String titolo = scanner.nextLine();
         System.out.println("Adesso inserisci il prezzo");
@@ -198,6 +201,8 @@ public class Collezione {
             String strPrice = scanner.nextLine();
             try {
                 price = Double.parseDouble(strPrice);
+                if(price <= 0) System.out.println("Devi inserire un prezzo maggiore di zero");
+                else break;
                 break;
             } catch (NumberFormatException e) {
                 System.out.println("Devi inserire un numero");
@@ -219,6 +224,17 @@ public class Collezione {
         System.out.println("La media prezzi dei giochi è: " + mediaPrezzi.getAsDouble());
     }
 
+    public void mostra(){
+        System.out.println("Giochi presenti nella lista: " + listaGiochi.size());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Ecco la tua lista");
+        listaGiochi.forEach(System.out::println);
+    }
+
     public void avviaMenu(){
         System.out.println("Benvenuto nella tua collezioni di giochi");
         try {
@@ -226,15 +242,8 @@ public class Collezione {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        mostra();
         while (true){
-            System.out.println("Giochi presenti nella lista: " + listaGiochi.size());
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            System.out.println("Ecco la tua lista");
-            listaGiochi.forEach(System.out::println);
             System.out.println("Che cosa vuoi fare?");
             System.out.println("1 per aggiungere elemento");
             System.out.println("2 per ricercare gioco tramite id");
@@ -243,13 +252,14 @@ public class Collezione {
             System.out.println("5 per rimozione gioco tramite id");
             System.out.println("6 per aggiornamento gioco tramite id");
             System.out.println("7 per le statistiche della tua collezione");
+            System.out.println("8 per mostrare la tua collezione");
             System.out.println("0 per uscire");
             int scelta;
             while (true){
                 String input = scanner.nextLine();
                 try {
                     scelta = Integer.parseInt(input);
-                    if (scelta < 0 || scelta > 7) System.out.println("Devi inserire un numero nel range");
+                    if (scelta < 0 || scelta > 8) System.out.println("Devi inserire un numero tra zero e 8");
                     else break;
                 } catch (NumberFormatException e){
                     System.out.println("Devi inserire un numero");
@@ -267,8 +277,8 @@ public class Collezione {
                 case 5 -> rimuoviId();
                 case 6 -> aggiornaGioco();
                 case 7 -> statistiche();
+                case 8 -> mostra();
             }
         }
     }
-
 }
