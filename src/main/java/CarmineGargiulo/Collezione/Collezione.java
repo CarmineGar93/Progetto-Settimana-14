@@ -7,13 +7,9 @@ import java.util.*;
 
 public class Collezione {
     Scanner scanner = new Scanner(System.in);
-    private Faker faker = new Faker(Locale.ITALY);
-    private Random random = new Random();
+    private final Faker faker = new Faker(Locale.ITALY);
+    private final Random random = new Random();
     private Collection<Gioco> listaGiochi = new TreeSet<>();
-
-    public Collection<Gioco> getListaGiochi() {
-        return listaGiochi;
-    }
 
     public Collezione() {
         generaRandom();
@@ -200,20 +196,24 @@ public class Collezione {
             System.out.println((ricerca == 1 ? "Videogioco " : "Gioco da tavolo ") + "inserito con successo");
             double finalPrice = price;
             System.out.println("Ecco il gioco che hai inserito");
-            System.out.println(listaGiochi.stream().filter(gioco -> gioco.getTitolo().equals(titolo) && gioco.getPrezzo() == finalPrice).findFirst().get());
+            Optional <Gioco> giocoInserito = listaGiochi.stream().filter(gioco -> gioco.getTitolo().equals(titolo) && gioco.getPrezzo() == finalPrice).findFirst();
+            if(giocoInserito.isPresent())  System.out.println(giocoInserito);
+            else System.out.println("Qualcosa è andato storto");
         }
     }
 
     public void statistiche(){
         System.out.println("Ecco le statistiche della collezione");
-        OptionalDouble mediaPrezzi = listaGiochi.stream().mapToDouble(Gioco::getPrezzo).average();
         long nrVideogiochi = listaGiochi.stream().filter(gioco -> gioco instanceof Videogioco).count();
         long nrGiochidaTavolo = listaGiochi.size() - nrVideogiochi;
         Optional<Gioco> mostExpensiveGame = listaGiochi.stream().max(Comparator.comparingDouble(Gioco::getPrezzo));
+        OptionalDouble mediaPrezzi = listaGiochi.stream().mapToDouble(Gioco::getPrezzo).average();
         System.out.println("Il numero totale dei videogiochi è: " + nrVideogiochi);
         System.out.println("Il numero totale dei giochi da tavolo è: " + nrGiochidaTavolo);
-        System.out.println("Il gioco con il prezzo più alto è: " + mostExpensiveGame.get());
-        System.out.println("La media prezzi dei giochi è: " + mediaPrezzi.getAsDouble());
+        if(mostExpensiveGame.isPresent()) System.out.println("Il gioco con il prezzo più alto è: " + mostExpensiveGame.get());
+        else System.out.println("Calcolo prezzo maggiore al momento non disponibile");
+        if (mediaPrezzi.isPresent()) System.out.println("La media prezzi dei giochi è: " + mediaPrezzi.getAsDouble());
+        else System.out.println("Calcolo media prezzi al momento non disponibile");
     }
 
     public void mostra(){
