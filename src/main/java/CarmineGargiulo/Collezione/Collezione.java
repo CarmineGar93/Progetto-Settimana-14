@@ -22,6 +22,7 @@ public class Collezione {
         }
     }
 
+
     private void aggiungi(String titolo, double price, int opzione){
         if (opzione == 1){
             List<Genere> generi = Arrays.stream(Genere.values()).toList();
