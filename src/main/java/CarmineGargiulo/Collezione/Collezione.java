@@ -207,4 +207,17 @@ public class Collezione {
         aggiungi(titolo, price, opzione);
         System.out.println((opzione == 1 ? "Videogioco " : "Gioco da tavolo ") + "inserito con successo");
     }
+
+    public void statistiche(){
+        System.out.println("Ecco le statistiche della collezione");
+        OptionalDouble mediaPrezzi = listaGiochi.stream().mapToDouble(Gioco::getPrezzo).average();
+        long nrVideogiochi = listaGiochi.stream().filter(gioco -> gioco instanceof Videogioco).count();
+        long nrGiochidaTavolo = listaGiochi.size() - nrVideogiochi;
+        Optional<Gioco> mostExpensiveGame = listaGiochi.stream().max(Comparator.comparingDouble(Gioco::getPrezzo));
+        System.out.println("Il numero totale dei videogiochi è: " + nrVideogiochi);
+        System.out.println("Il numero totale dei giochi da tavolo è: " + nrGiochidaTavolo);
+        System.out.println("Il gioco con il prezzo più alto è: " + mostExpensiveGame.get());
+        System.out.println("La media prezzi dei giochi è: " + mediaPrezzi.getAsDouble());
+    }
+
 }
