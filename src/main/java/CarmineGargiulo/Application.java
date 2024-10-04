@@ -9,5 +9,6 @@ public class Application {
         collezione.aggiungiElemento();
         collezione.getListaGiochi().forEach(System.out::println);
         collezione.ricercaId();
+        collezione.ricercaPrezzo();
     }
 }

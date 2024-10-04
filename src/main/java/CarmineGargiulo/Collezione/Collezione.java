@@ -22,7 +22,7 @@ public class Collezione {
     private void generaRandom(){
         for (int i = 0; i < 50; i++) {
             int opzione = random.nextInt(1, 3);
-            aggiungi(faker.app().name(), Double.parseDouble(faker.commerce().price()), opzione);
+            aggiungi(faker.app().name(), random.nextDouble(10, 250), opzione);
         }
     }
 
@@ -41,6 +41,29 @@ public class Collezione {
                 GiocoDaTavolo giocoDaTavolo = new GiocoDaTavolo(titolo, price);
                 if(listaGiochi.add(giocoDaTavolo)) break;
             }
+        }
+    }
+
+    public void ricercaPrezzo(){
+        System.out.println("Inserisci un prezzo massimo, ti mostreremo tutti i giochi della collezione con prezzi inferiori al prezzo fornito");
+        double price;
+        while (true){
+            String input = scanner.nextLine();
+            try {
+                price = Double.parseDouble(input);
+                if (price <= 0) System.out.println("Il prezzo deve essere maggiore di zero");
+                else break;
+            } catch (NumberFormatException e){
+                System.out.println("Devi inserire un numero");
+            }
+        }
+        double finalprice = price;
+        List<Gioco> listaGiochiFiltrata = listaGiochi.stream().filter(gioco -> gioco.getPrezzo() < finalprice).toList();
+
+        if (listaGiochiFiltrata.isEmpty()) System.out.println("Prezzo troppo basso");
+        else {
+            System.out.println("Ecco la lista filtrata");
+            listaGiochiFiltrata.forEach(System.out::println);
         }
     }
 
