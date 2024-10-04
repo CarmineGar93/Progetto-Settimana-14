@@ -89,7 +89,7 @@ public class Collezione {
         }
     }
 
-    public void ricercaId(){
+    private int insertId(){
         System.out.println("Inserisci un id da cercare (range 1-1000)");
         int ricerca;
         while (true){
@@ -102,7 +102,35 @@ public class Collezione {
                 System.out.println("Devi inserire un numero");
             }
         }
-        int finalRicerca = ricerca;
+        return ricerca;
+    }
+
+    public void rimuoviId(){
+        int finalRicerca = insertId();
+        boolean rimosso = false;
+        Iterator<Gioco> iterator = listaGiochi.iterator();
+        while (iterator.hasNext()){
+            Gioco corrente = iterator.next();
+            if(corrente.getId() == finalRicerca){
+                iterator.remove();
+                rimosso = true;
+                break;
+            }
+        }
+        if (rimosso) {
+            System.out.println("Rimozione gioco in corso");
+            try {
+                Thread.sleep(2000); //java. lang. InterruptedException senza try/catch
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("Gioco della collezione cancellato con successo");
+        }
+        else System.out.println("Nessun elemento corrisponde all'id cercato");
+    }
+
+    public void ricercaId(){
+        int finalRicerca = insertId();
         Optional <Gioco> giocoCercato = listaGiochi.stream().filter(gioco -> gioco.getId() == finalRicerca).findFirst();
         if(giocoCercato.isPresent()) {
             System.out.println("Ecco il gioco cercato");

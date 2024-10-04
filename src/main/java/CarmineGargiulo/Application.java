@@ -11,5 +11,6 @@ public class Application {
         collezione.ricercaId();
         collezione.ricercaPrezzo();
         collezione.ricercaGiocatori();
+        collezione.rimuoviId();
     }
 }
