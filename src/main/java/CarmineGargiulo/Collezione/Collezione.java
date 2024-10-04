@@ -59,7 +59,6 @@ public class Collezione {
         }
         double finalprice = price;
         List<Gioco> listaGiochiFiltrata = listaGiochi.stream().filter(gioco -> gioco.getPrezzo() < finalprice).toList();
-
         if (listaGiochiFiltrata.isEmpty()) System.out.println("Prezzo troppo basso");
         else {
             System.out.println("Ecco la lista filtrata");
